@@ -1,0 +1,305 @@
+# 911 Emergency Calls Analytics Platform Configuration
+
+# Application Settings
+app_name: "911 Emergency Calls Analytics Platform"
+version: "1.0.0"
+environment: "development"
+debug: true
+
+# Data Processing Configuration
+data:
+  raw_data_path: "data/raw/911.csv"
+  processed_data_path: "data/processed/"
+  chunk_size: 10000
+  coordinate_bounds:
+    lat_min: 39.0
+    lat_max: 42.0
+    lng_min: -76.0
+    lng_max: -74.0
+  outlier_threshold: 3.0
+  min_call_frequency: 5
+
+# Machine Learning Configuration
+model:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  n_jobs: -1
+  optimize_hyperparameters: true
+  save_models: true
+  model_output_path: "models/"
+  
+  # XGBoost Parameters
+  xgb_params:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 1
+    gamma: 0
+    reg_alpha: 0
+    reg_lambda: 1
+  
+  # Random Forest Parameters
+  rf_params:
+    n_estimators: 100
+    max_depth: 20
+    min_samples_split: 5
+    min_samples_leaf: 2
+    max_features: "sqrt"
+    bootstrap: true
+  
+  # LightGBM Parameters
+  lgb_params:
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+    num_leaves: 31
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_samples: 20
+  
+  # Prophet Parameters
+  prophet_params:
+    daily_seasonality: true
+    weekly_seasonality: true
+    yearly_seasonality: true
+    changepoint_prior_scale: 0.05
+    seasonality_prior_scale: 10.0
+    holidays_prior_scale: 10.0
+
+# Dashboard Configuration
+dashboard:
+  host: "localhost"
+  port: 8501
+  debug: false
+  cache_ttl: 3600  # Cache time-to-live in seconds
+  max_map_points: 5000
+  default_date_range_days: 365
+  
+  # UI Settings
+  page_title: "911 Emergency Calls Analytics"
+  page_icon: "🚨"
+  layout: "wide"
+  
+  # Chart Settings
+  chart_theme: "plotly"
+  color_palette: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd"]
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {name} | {message}"
+  log_file: "logs/app.log"
+  rotation: "1 week"
+  retention: "1 month"
+  
+  # Log different modules at different levels
+  modules:
+    data.processor: "DEBUG"
+    models.train: "INFO"
+    visualization.plots: "WARNING"
+    dashboard.app: "INFO"
+
+# Database Configuration (for future use)
+database:
+  host: "localhost"
+  port: 5432
+  database: "emergency_calls"
+  username: "postgres"
+  password: ""
+  pool_size: 5
+  max_overflow: 10
+  pool_timeout: 30
+  pool_recycle: 3600
+
+# API Configuration (for future use)
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  reload: false
+  cors_origins: ["*"]
+  
+  # Rate limiting
+  rate_limit:
+    requests_per_minute: 100
+    burst_size: 10
+  
+  # Security
+  security:
+    secret_key: "your-secret-key-here"
+    algorithm: "HS256"
+    access_token_expire_minutes: 30
+
+# Feature Engineering Configuration
+features:
+  temporal:
+    include_cyclical: true
+    include_business_hours: true
+    include_holidays: true
+    timezone: "US/Eastern"
+  
+  geospatial:
+    clustering_algorithm: "kmeans"
+    n_clusters: 20
+    include_distance_features: true
+    city_center:
+      lat: 40.2677
+      lng: -75.2797
+  
+  text:
+    include_length_features: true
+    include_word_count: true
+    include_keywords: true
+    max_features: 1000
+  
+  statistical:
+    include_frequency_features: true
+    rolling_window_sizes: [7, 30, 90]
+    aggregation_functions: ["mean", "std", "min", "max"]
+
+# Visualization Configuration
+visualization:
+  default_style: "seaborn-v0_8"
+  figure_size: [12, 8]
+  dpi: 300
+  save_format: "html"
+  
+  # Colors for different emergency types
+  emergency_colors:
+    EMS: "#ff4444"
+    Fire: "#ff8800"
+    Traffic: "#4444ff"
+    Other: "#888888"
+  
+  # Map settings
+  map:
+    default_zoom: 10
+    tile_layer: "CartoDB positron"
+    heatmap_radius: 15
+    heatmap_blur: 10
+    cluster_colors: ["red", "blue", "green", "purple", "orange"]
+
+# Performance Configuration
+performance:
+  # Data sampling for large datasets
+  sampling:
+    max_dashboard_points: 5000
+    max_map_points: 1000
+    sample_method: "random"
+  
+  # Caching
+  cache:
+    enable: true
+    ttl: 3600
+    max_size: "1GB"
+  
+  # Parallel processing
+  parallel:
+    n_jobs: -1
+    backend: "threading"
+
+# Testing Configuration
+testing:
+  test_data_size: 1000
+  test_random_state: 42
+  coverage_threshold: 80
+  
+  # Test database (in-memory SQLite)
+  test_database:
+    url: "sqlite:///:memory:"
+    echo: false
+
+# Deployment Configuration
+deployment:
+  environment: "production"
+  
+  # Docker settings
+  docker:
+    image_name: "911-analytics"
+    tag: "latest"
+    port: 8501
+    
+  # Health checks
+  health_check:
+    endpoint: "/health"
+    interval: 30
+    timeout: 10
+    retries: 3
+  
+  # Monitoring
+  monitoring:
+    enable_metrics: true
+    metrics_port: 9090
+    enable_alerts: true
+
+# Feature Flags
+feature_flags:
+  enable_ml_models: true
+  enable_time_series_forecasting: true
+  enable_clustering: true
+  enable_advanced_visualizations: true
+  enable_real_time_updates: false
+  enable_api: false
+  enable_user_authentication: false
+
+# External Services Configuration
+external_services:
+  # Weather API (for correlation analysis)
+  weather_api:
+    enabled: false
+    api_key: ""
+    base_url: "https://api.openweathermap.org/data/2.5"
+  
+  # Geocoding service
+  geocoding:
+    enabled: false
+    provider: "nominatim"
+    rate_limit: 1  # requests per second
+  
+  # Email notifications
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    username: ""
+    password: ""
+
+# Security Configuration
+security:
+  # Data anonymization
+  anonymization:
+    enabled: true
+    hash_addresses: true
+    remove_personal_info: true
+  
+  # Access control
+  access_control:
+    enabled: false
+    allowed_ips: []
+    require_api_key: false
+  
+  # Encryption
+  encryption:
+    encrypt_data_at_rest: false
+    encryption_key: ""
+
+# Compliance Configuration
+compliance:
+  # Data retention
+  data_retention:
+    days: 2555  # 7 years
+    auto_cleanup: true
+  
+  # Audit logging
+  audit:
+    enabled: true
+    log_file: "logs/audit.log"
+    log_level: "INFO"
+  
+  # Privacy settings
+  privacy:
+    anonymize_coordinates: false
+    precision_reduction: 3  # decimal places for coordinates 

@@ -1,0 +1,61 @@
+2025-05-29 22:00:25 | INFO | __main__ | 🚨 911 Emergency Calls Analytics Pipeline Started
+2025-05-29 22:00:25 | INFO | __main__ | Configuration loaded from: default
+2025-05-29 22:00:25 | INFO | __main__ | 📊 Starting data processing...
+2025-05-29 22:00:25 | INFO | __main__ | Loading raw data...
+2025-05-29 22:00:25 | INFO | data.processor | Loading data from data/raw/911.csv
+2025-05-29 22:00:25 | INFO | data.processor | Loaded 423,909 records
+2025-05-29 22:00:25 | WARNING | data.processor | Found 50 records with invalid coordinates
+2025-05-29 22:00:26 | INFO | data.processor | Data quality score: 1.00
+2025-05-29 22:00:26 | INFO | __main__ | Loaded 423,909 raw records
+2025-05-29 22:00:26 | INFO | __main__ | Cleaning data...
+2025-05-29 22:00:26 | INFO | data.processor | Starting data cleaning process
+2025-05-29 22:00:26 | INFO | data.processor | Removed 72 duplicate records
+2025-05-29 22:00:30 | ERROR | __main__ | ❌ Data processing failed: There are 8 dst switches when there should only be 1.
+2025-05-29 22:00:30 | ERROR | __main__ | Pipeline failed: There are 8 dst switches when there should only be 1.
+2025-05-29 22:00:30 | INFO | __main__ | 🧹 Cleaning up...
+2025-05-29 22:00:30 | INFO | __main__ | ✅ Cleanup completed
+2025-05-29 22:00:55 | INFO | __main__ | 🚨 911 Emergency Calls Analytics Pipeline Started
+2025-05-29 22:00:55 | INFO | __main__ | Configuration loaded from: default
+2025-05-29 22:00:55 | INFO | __main__ | 📊 Starting data processing...
+2025-05-29 22:00:55 | INFO | __main__ | Loading raw data...
+2025-05-29 22:00:55 | INFO | data.processor | Loading data from data/raw/911.csv
+2025-05-29 22:00:56 | INFO | data.processor | Loaded 423,909 records
+2025-05-29 22:00:56 | WARNING | data.processor | Found 50 records with invalid coordinates
+2025-05-29 22:00:57 | INFO | data.processor | Data quality score: 1.00
+2025-05-29 22:00:57 | INFO | __main__ | Loaded 423,909 raw records
+2025-05-29 22:00:57 | INFO | __main__ | Cleaning data...
+2025-05-29 22:00:57 | INFO | data.processor | Starting data cleaning process
+2025-05-29 22:00:57 | INFO | data.processor | Removed 72 duplicate records
+2025-05-29 22:00:59 | INFO | data.processor | Data cleaning completed. Final records: 419,577
+2025-05-29 22:00:59 | INFO | __main__ | After cleaning: 419,577 records
+2025-05-29 22:00:59 | INFO | __main__ | Engineering features...
+2025-05-29 22:00:59 | INFO | data.processor | Starting feature engineering
+2025-05-29 22:01:08 | INFO | data.processor | Created 30 new features
+2025-05-29 22:01:08 | INFO | __main__ | Created 30 new features
+2025-05-29 22:01:08 | INFO | __main__ | Preparing data for modeling...
+2025-05-29 22:01:08 | INFO | data.processor | Preparing data for modeling
+2025-05-29 22:01:10 | INFO | data.processor | Saving processed data to data\processed\processed_data.parquet
+2025-05-29 22:01:23 | INFO | data.processor | Data saved to data\processed\processed_data.parquet and data\processed\processed_data.csv
+2025-05-29 22:01:23 | INFO | __main__ | ✅ Data processing completed: data\processed\processed_data.parquet
+2025-05-29 22:01:33 | INFO | __main__ | 🚨 911 Emergency Calls Analytics Pipeline Started
+2025-05-29 22:01:33 | INFO | __main__ | Configuration loaded from: default
+2025-05-29 22:01:33 | INFO | __main__ | 🤖 Starting model training...
+2025-05-29 22:01:34 | INFO | __main__ | Loaded 419,577 processed records for training
+2025-05-29 22:01:34 | ERROR | __main__ | ❌ Model training failed: 'AppConfig' object has no attribute 'feature_flags'
+2025-05-29 22:01:34 | ERROR | __main__ | Pipeline failed: 'AppConfig' object has no attribute 'feature_flags'
+2025-05-29 22:01:34 | INFO | __main__ | 🧹 Cleaning up...
+2025-05-29 22:01:34 | INFO | __main__ | ✅ Cleanup completed
+2025-05-29 22:01:58 | INFO | __main__ | 🚨 911 Emergency Calls Analytics Pipeline Started
+2025-05-29 22:01:58 | INFO | __main__ | Configuration loaded from: default
+2025-05-29 22:01:58 | INFO | __main__ | 🤖 Starting model training...
+2025-05-29 22:01:59 | INFO | __main__ | Loaded 419,577 processed records for training
+2025-05-29 22:01:59 | INFO | __main__ | Training classification models...
+2025-05-29 22:01:59 | INFO | models.train | Preparing classification data for target: emergency_category
+2025-05-29 22:01:59 | ERROR | __main__ | ❌ Model training failed: Cannot setitem on a Categorical with a new category (0), set the categories first
+2025-05-29 22:01:59 | ERROR | __main__ | Pipeline failed: Cannot setitem on a Categorical with a new category (0), set the categories first
+2025-05-29 22:01:59 | INFO | __main__ | 🧹 Cleaning up...
+2025-05-29 22:01:59 | INFO | __main__ | ✅ Cleanup completed
+2025-05-29 22:02:05 | INFO | __main__ | 🚨 911 Emergency Calls Analytics Pipeline Started
+2025-05-29 22:02:05 | INFO | __main__ | Configuration loaded from: default
+2025-05-29 22:02:05 | INFO | __main__ | 📈 Generating visualizations...
+2025-05-29 22:02:06 | INFO | __main__ | ✅ Visualizations generated: plots
